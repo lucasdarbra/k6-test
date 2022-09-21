@@ -21,5 +21,5 @@ jobs:
         shell: bash
 
       - name: k6 test
-        run: ./k6.exe run testingK6.js
+        run: ./k6.exe run testingK6.js --out output-prometheus-remote=url=https://production.commit.works/citemap/api/v1/write
         shell: bash

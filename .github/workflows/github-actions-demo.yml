@@ -13,7 +13,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-
+      
+      # Setup Go
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.14.0' # The Go version to download (if necessary) and use.    
+      # Install all the dependencies
+      - name: Install dependencies
+        run: |
+          go version
+          go get -u golang.org/x/lint/golint
+      
       - name: download and extract k6 release binaries
         run: |
           curl -L https://github.com/loadimpact/k6/releases/download/v0.25.1/k6-v0.25.1-win64.zip -o k6.zip

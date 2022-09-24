@@ -26,7 +26,6 @@ jobs:
           go version
           go get -u golang.org/x/lint/golint
           go get -u github.com/k6io/xk6/cmd/xk6
-          xk6 build
 
       
       - name: download and extract k6 release binaries

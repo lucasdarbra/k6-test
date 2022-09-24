@@ -29,16 +29,12 @@ jobs:
               --output ./k6ext \
               --with github.com/grafana/xk6-output-prometheus-remote="."
             ./k6ext version
-  build:
-    name: Run k6 test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+            
+
       - name: Run k6 local test
         uses: grafana/k6-action@v0.2.0
         with:
           filename: testingK6.js
-          flags: --vus 50 --duration 10s
+          flags: --vus 2 --duration 5s
             
       

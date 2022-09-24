@@ -11,19 +11,25 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      
-      # Setup Go
-      - name: Setup Go
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Install Go
         uses: actions/setup-go@v2
         with:
-          go-version: '1.14.0' # The Go version to download (if necessary) and use.    
-      # Install all the dependencies
-      - name: Install dependencies
+          go-version: 1.17.x
+          
+      - name: Check build
         run: |
-          go version
-          go get -u golang.org/x/lint/golint
+            go version
+            pwd && ls -l
+            export CGO_ENABLED=0
+            
+            go install go.k6.io/xk6/cmd/xk6@master
+            GOPRIVATE="go.k6.io/k6" xk6 build \
+              --output ./k6ext \
+              --with github.com/grafana/xk6-output-prometheus-remote="."
+            ./k6ext version
       
       - name: download and extract k6 release binaries
         run: |
